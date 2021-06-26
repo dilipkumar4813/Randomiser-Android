@@ -19,3 +19,12 @@ Ever had a scenario when your friends/family had to pick a person who had to do 
 6. Open ```local.properties``` and add the ```ndk.dir=<YOUR-NDK-PATH>``` below ```sdk.dir```
 7. Open ```build.gradle``` and update the ```ndkVersion``` number as per your downloaded version.
 8. Build and run.
+
+## References
+* [OpenCV 4.5.2](https://docs.opencv.org/4.5.2/)
+* [PNG Tree for Assets](https://pngtree.com/so/photo)
+* [Google Fonts](https://fonts.google.com/specimen/Cairo#standard-styles)
+* [Logo from iamdilipkumar](https://iamdilipkumar.com/)
+
+## Notes
+* Color combination is due to the inspiration from Nintendo Switch, it does not go with the color wheel but wanted to try it out.
