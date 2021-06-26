@@ -3,13 +3,14 @@
     package="com.iamdilipkumar.randomiser">
 
     <application
+        android:name=".utilities.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Randomiser">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
