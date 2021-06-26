@@ -3,7 +3,7 @@ package com.iamdilipkumar.randomiser.ui.base
 import com.iamdilipkumar.randomiser.di.component.DaggerPresenterInjector
 import com.iamdilipkumar.randomiser.di.component.PresenterInjector
 import com.iamdilipkumar.randomiser.di.module.ContextModule
-import com.iamdilipkumar.randomiser.ui.activities.SplashPresenter
+import com.iamdilipkumar.randomiser.ui.activities.splash.SplashPresenter
 
 /**
  * @project:        Randomiser

@@ -1,7 +1,7 @@
 package com.iamdilipkumar.randomiser.di.component
 
 import com.iamdilipkumar.randomiser.di.module.ContextModule
-import com.iamdilipkumar.randomiser.ui.activities.SplashPresenter
+import com.iamdilipkumar.randomiser.ui.activities.splash.SplashPresenter
 import com.iamdilipkumar.randomiser.ui.base.BaseView
 import dagger.BindsInstance
 import dagger.Component

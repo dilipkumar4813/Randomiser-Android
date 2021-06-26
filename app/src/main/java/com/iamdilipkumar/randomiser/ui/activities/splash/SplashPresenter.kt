@@ -1,4 +1,4 @@
-package com.iamdilipkumar.randomiser.ui.activities
+package com.iamdilipkumar.randomiser.ui.activities.splash
 
 import com.iamdilipkumar.randomiser.ui.base.BasePresenter
 

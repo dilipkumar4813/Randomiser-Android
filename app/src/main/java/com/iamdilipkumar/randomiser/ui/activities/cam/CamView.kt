@@ -1,4 +1,4 @@
-package com.iamdilipkumar.randomiser.ui.activities
+package com.iamdilipkumar.randomiser.ui.activities.cam
 
 import com.iamdilipkumar.randomiser.ui.base.BaseView
 
@@ -7,5 +7,5 @@ import com.iamdilipkumar.randomiser.ui.base.BaseView
  * @version:    1.0
  * @author:     Dilip Kumar <dilipkumar4813@gmail.com>
  */
-interface SplashView : BaseView {
+interface CamView: BaseView {
 }

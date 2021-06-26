@@ -1,8 +1,9 @@
-package com.iamdilipkumar.randomiser.ui.activities
+package com.iamdilipkumar.randomiser.ui.activities.splash
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Intent
+import android.os.Handler
 import com.iamdilipkumar.randomiser.R
+import com.iamdilipkumar.randomiser.ui.activities.info.InfoActivity
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 
 /**
@@ -17,7 +18,10 @@ class SplashActivity : BaseActivityMVP<SplashPresenter>(), SplashView {
     }
 
     override fun afterViews() {
-
+        Handler().postDelayed({
+            startActivity(Intent(this, InfoActivity::class.java))
+            finishAffinity()
+        }, 2000)
     }
 
     override fun getLayoutId(): Int {
