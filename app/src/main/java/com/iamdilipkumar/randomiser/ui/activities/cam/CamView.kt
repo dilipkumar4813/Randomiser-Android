@@ -8,4 +8,5 @@ import com.iamdilipkumar.randomiser.ui.base.BaseView
  * @author:     Dilip Kumar <dilipkumar4813@gmail.com>
  */
 interface CamView: BaseView {
+    fun onCameraPermissionGranted()
 }

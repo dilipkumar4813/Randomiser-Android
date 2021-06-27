@@ -7,6 +7,8 @@ package com.iamdilipkumar.randomiser.utilities
  */
 class AppConstants {
     companion object {
+        const val CAM_TAG = "Cam"
 
+        const val CAMERA_PERMISSION_REQUEST_CODE = 200
     }
 }
