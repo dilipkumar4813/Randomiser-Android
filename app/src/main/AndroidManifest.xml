@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.cam.CamActivity" />
+        <activity android:name=".ui.activities.cam.CamActivity"
+            android:screenOrientation="landscape" />
 
         <activity android:name=".ui.activities.info.InfoActivity" />
     </application>

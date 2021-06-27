@@ -1,7 +1,10 @@
 package com.iamdilipkumar.randomiser.ui.activities.cam
 
 import android.content.pm.PackageManager
+import android.os.Build
+import android.util.DisplayMetrics
 import android.view.SurfaceView
+import android.view.WindowInsets
 import android.view.WindowManager
 import com.iamdilipkumar.randomiser.R
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
@@ -9,7 +12,11 @@ import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_cam.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
+import org.opencv.core.Core
 import org.opencv.core.Mat
+import org.opencv.core.Size
+import org.opencv.imgproc.Imgproc
+
 
 /**
  * @project:    Randomiser
@@ -44,10 +51,20 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         mOpenCvCameraView = custom_cam_view as CameraBridgeViewBase
         mOpenCvCameraView?.visibility = SurfaceView.VISIBLE
         mOpenCvCameraView?.setCvCameraViewListener(this)
+
+        // mOpenCvCameraView?.setMaxFrameSize(1000,800)
     }
 
     override fun getLayoutId(): Int {
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
         return R.layout.activity_cam
     }
 
@@ -75,6 +92,9 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         return listOf(mOpenCvCameraView) as MutableList<out CameraBridgeViewBase>
     }
 
+    /**
+     * Function to handle once permission has been granted
+     */
     override fun onCameraPermissionGranted() {
         val cameraViews = getCameraViewList() ?: return
         for (cameraBridgeViewBase in cameraViews) {
@@ -105,6 +125,11 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
      * Handle frame operations here based on the Mat received from Cameraview
      */
     override fun onCameraFrame(inputFrame: CameraBridgeViewBase.CvCameraViewFrame?): Mat {
+        // Checking orientation issue
+        /*val mRgba = inputFrame!!.rgba()
+        val mRgbaT: Mat = mRgba.t()
+        Core.flip(mRgba.t(), mRgbaT, 1)
+        Imgproc.resize(mRgbaT, mRgbaT, mRgba.size())*/
         return inputFrame!!.rgba()
     }
 }
