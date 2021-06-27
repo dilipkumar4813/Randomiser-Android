@@ -21,6 +21,12 @@ import com.iamdilipkumar.randomiser.utilities.AppPreference
  */
 abstract class BaseActivityMVP<P : BasePresenter<BaseView>> : BaseView, AppCompatActivity() {
 
+    companion object {
+        init {
+            System.loadLibrary("detection_based_tracker")
+        }
+    }
+
     lateinit var presenter: P
     lateinit var progressBar: ProgressBar
     lateinit var constraintLayout: ConstraintLayout

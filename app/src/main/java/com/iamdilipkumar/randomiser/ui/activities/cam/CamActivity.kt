@@ -2,20 +2,19 @@ package com.iamdilipkumar.randomiser.ui.activities.cam
 
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.DisplayMetrics
 import android.view.SurfaceView
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.iamdilipkumar.randomiser.R
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import com.iamdilipkumar.randomiser.utilities.AppConstants
+import com.iamdilipkumar.randomiser.utilities.tracker.DetectionBasedTracker
 import kotlinx.android.synthetic.main.activity_cam.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
-import org.opencv.core.Core
 import org.opencv.core.Mat
-import org.opencv.core.Size
-import org.opencv.imgproc.Imgproc
+import org.opencv.objdetect.CascadeClassifier
+import java.io.File
 
 
 /**
@@ -26,12 +25,19 @@ import org.opencv.imgproc.Imgproc
 class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
     CameraBridgeViewBase.CvCameraViewListener2 {
 
+    private var mRgba: Mat? = null
+    private var mGray: Mat? = null
+
+    var shouldCapture = false
+
     var mOpenCvCameraView: CameraBridgeViewBase? = null
 
     private val mLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
             when (status) {
                 SUCCESS -> {
+                    presenter.initFacialDetection()
+
                     // OpenCV loaded successfully
                     mOpenCvCameraView?.enableView()
                 }
@@ -114,22 +120,28 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
     }
 
     override fun onCameraViewStarted(width: Int, height: Int) {
-
+        mGray = Mat()
+        mRgba = Mat()
     }
 
     override fun onCameraViewStopped() {
-
+        mGray?.release()
+        mRgba?.release()
     }
 
     /**
      * Handle frame operations here based on the Mat received from Cameraview
      */
     override fun onCameraFrame(inputFrame: CameraBridgeViewBase.CvCameraViewFrame?): Mat {
+        mRgba = inputFrame!!.rgba()
+        mGray = inputFrame.gray()
+
+        presenter.detectFaces(mRgba!!, mGray!!)
         // Checking orientation issue
         /*val mRgba = inputFrame!!.rgba()
         val mRgbaT: Mat = mRgba.t()
         Core.flip(mRgba.t(), mRgbaT, 1)
         Imgproc.resize(mRgbaT, mRgbaT, mRgba.size())*/
-        return inputFrame!!.rgba()
+        return mRgba!!
     }
 }

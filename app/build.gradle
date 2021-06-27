@@ -17,6 +17,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                arguments "-DOpenCV_DIR=" + project(':opencv').projectDir + "/native/jni" // , "-DANDROID_ARM_NEON=TRUE"
+            }
+        }
     }
 
     buildTypes {
@@ -35,6 +42,12 @@ android {
     }
 
     ndkVersion '22.1.7171670'
+
+    externalNativeBuild {
+        cmake {
+            path 'jni/CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
