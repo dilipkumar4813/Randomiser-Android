@@ -76,6 +76,11 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
         mOpenCvCameraView?.disableView()
     }
 
+    /**
+     * Initialise Facial Detection by getting the lbpcascade_frontface xml
+     * The lbpcascade_frontface xml is the dots that is used to determine facial features
+     * such as eyes, cheeks etc
+     */
     fun initFacialDetection() {
         try {
             val context = camView.getContext()
@@ -113,6 +118,10 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
         }
     }
 
+    /**
+     * Function to detect the faces during the frame update of the camera
+     * to get live preview of the detections
+     */
     fun detectFaces(rgba: Mat, gray: Mat) {
         if (mAbsoluteFaceSize == 0) {
             val height = gray.rows()

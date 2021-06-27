@@ -8,14 +8,10 @@ import android.view.WindowManager
 import com.iamdilipkumar.randomiser.R
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import com.iamdilipkumar.randomiser.utilities.AppConstants
-import com.iamdilipkumar.randomiser.utilities.tracker.DetectionBasedTracker
 import kotlinx.android.synthetic.main.activity_cam.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.core.Mat
-import org.opencv.objdetect.CascadeClassifier
-import java.io.File
-
 
 /**
  * @project:    Randomiser
@@ -102,7 +98,7 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
      * Function to handle once permission has been granted
      */
     override fun onCameraPermissionGranted() {
-        val cameraViews = getCameraViewList() ?: return
+        val cameraViews = getCameraViewList()
         for (cameraBridgeViewBase in cameraViews) {
             cameraBridgeViewBase.setCameraPermissionGranted()
         }
