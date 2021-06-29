@@ -44,6 +44,8 @@
             android:screenOrientation="landscape" />
 
         <activity android:name=".ui.activities.info.InfoActivity" />
+
+        <activity android:name=".ui.activities.results.LuckyResultActivity" />
     </application>
 
 </manifest>

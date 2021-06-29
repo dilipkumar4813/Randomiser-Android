@@ -11,7 +11,7 @@ import com.iamdilipkumar.randomiser.utilities.AppConstants
  * @version:    1.0
  * @author:     Dilip Kumar <dilipkumar4813@gmail.com>
  */
-class InfoPresenter(val infoView: InfoView) : BasePresenter<InfoView>(infoView) {
+class InfoPresenter(private val infoView: InfoView) : BasePresenter<InfoView>(infoView) {
 
     /**
      * Function to request permission for camera and return to activity for further processing

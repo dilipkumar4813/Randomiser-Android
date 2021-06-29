@@ -1,6 +1,9 @@
 package com.iamdilipkumar.randomiser.di.component
 
 import com.iamdilipkumar.randomiser.di.module.ContextModule
+import com.iamdilipkumar.randomiser.ui.activities.cam.CamPresenter
+import com.iamdilipkumar.randomiser.ui.activities.info.InfoPresenter
+import com.iamdilipkumar.randomiser.ui.activities.results.LuckyResultPresenter
 import com.iamdilipkumar.randomiser.ui.activities.splash.SplashPresenter
 import com.iamdilipkumar.randomiser.ui.base.BaseView
 import dagger.BindsInstance
@@ -32,4 +35,7 @@ interface PresenterInjector {
 
     /*activities*/
     fun injectSplash(splashPresenter: SplashPresenter)
+    fun injectInfo(infoPresenter: InfoPresenter)
+    fun injectCam(camPresenter: CamPresenter)
+    fun injectLuckyResult(luckyResultPresenter: LuckyResultPresenter)
 }
