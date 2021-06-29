@@ -33,10 +33,12 @@ class TwoButtonDialog(
         btn_right.text = buttonRightText
 
         btn_left.setOnClickListener {
+            dismiss()
             twoDialogInterface.leftButtonClicked()
         }
 
         btn_right.setOnClickListener {
+            dismiss()
             twoDialogInterface.rightButtonClicked()
         }
     }

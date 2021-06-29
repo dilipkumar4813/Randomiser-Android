@@ -3,4 +3,7 @@
     <string name="app_description">A Fun Experiment with Friends in order to reduce bias and choose the best one out</string>
     <string name="start_detection">Start Detection</string>
     <string name="background_image">Background Image</string>
+    <string name="camera_permission_title">Camera Permission</string>
+    <string name="camera_permission_second_request">Please provide the camera permission to play. Would you like to provide now?</string>
+    <string name="camera_permission_fail">You would not be able to play until you provide the permission.</string>
 </resources>
