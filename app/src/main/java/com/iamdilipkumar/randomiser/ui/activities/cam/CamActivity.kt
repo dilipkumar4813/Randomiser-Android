@@ -1,13 +1,15 @@
 package com.iamdilipkumar.randomiser.ui.activities.cam
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.view.SurfaceView
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.iamdilipkumar.randomiser.R
-import com.iamdilipkumar.randomiser.dialogs.SingleButtonDialog
+import com.iamdilipkumar.randomiser.ui.activities.results.LuckyResultActivity
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_cam.*
@@ -21,11 +23,14 @@ import org.opencv.core.Mat
  * @author:     Dilip Kumar <dilipkumar4813@gmail.com>
  */
 class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
-    CameraBridgeViewBase.CvCameraViewListener2 {
+    CameraBridgeViewBase.CvCameraViewListener2, View.OnClickListener {
 
     private var mRgba: Mat? = null
     private var mGray: Mat? = null
-    var detectedBitmap: Bitmap? = null
+
+    companion object {
+        var detectedBitmap: Bitmap? = null
+    }
 
     var shouldCapture = false
 
@@ -56,8 +61,7 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         mOpenCvCameraView = custom_cam_view as CameraBridgeViewBase
         mOpenCvCameraView?.visibility = SurfaceView.VISIBLE
         mOpenCvCameraView?.setCvCameraViewListener(this)
-
-        // mOpenCvCameraView?.setMaxFrameSize(1000,800)
+        iv_place.setOnClickListener(this)
     }
 
     override fun getLayoutId(): Int {
@@ -151,5 +155,16 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         Core.flip(mRgba.t(), mRgbaT, 1)
         Imgproc.resize(mRgbaT, mRgbaT, mRgba.size())*/
         return mRgba!!
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            iv_place -> {
+                if (detectedBitmap != null) {
+                    val intent = Intent(this, LuckyResultActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 }

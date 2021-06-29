@@ -178,17 +178,17 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
                 // Draw the text above the box
                 Imgproc.putText(
                     rgba,
-                    "You're the chosen one", Point(
+                    "Chosen one!", Point(
                         max(rt.tl().x - 10, 0.0), max(rt.tl().y - 10, 0.0)
                     ), Imgproc.FONT_HERSHEY_TRIPLEX,
-                    0.5, AppConstants.TEXT_RECT_COLOR
+                    1.0, AppConstants.TEXT_RECT_COLOR
                 )
             }
         }
 
         if (facesArray.size >= AppConstants.THRESHOLD) {
-            camActivity.detectedBitmap = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888)
-            Utils.matToBitmap(rgba, camActivity.detectedBitmap)
+            CamActivity.detectedBitmap = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888)
+            Utils.matToBitmap(rgba, CamActivity.detectedBitmap)
         }
     }
 }
