@@ -4,6 +4,9 @@
 
 Ever had a scenario when your friends/family had to pick a person who had to do a specific task and flipping a coin just did not solve your problem. This project aims on resolving that using the OpenCV library.
 
+## End Result
+![Chosen One](/screenshots/chosen-one.png "Chosen One")
+
 ## Requirements
 * Android Studio
 * Android NDK
@@ -19,6 +22,9 @@ Ever had a scenario when your friends/family had to pick a person who had to do 
 6. Open ```local.properties``` and add the ```ndk.dir=<YOUR-NDK-PATH>``` below ```sdk.dir```
 7. Open ```build.gradle``` and update the ```ndkVersion``` number as per your downloaded version.
 8. Build and run.
+
+## Threshold
+* At the moment the result is generated only when 2 or more faces are detected if you would like to change this value open ```AppConstants``` and update the ```THRESHOLD``` variable.
 
 ## References
 * [OpenCV 4.5.2](https://docs.opencv.org/4.5.2/)
