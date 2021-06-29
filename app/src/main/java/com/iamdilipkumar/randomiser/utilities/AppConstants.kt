@@ -19,5 +19,9 @@ class AppConstants {
         const val NATIVE_DETECTOR = 1
 
         val FACE_RECT_COLOR = Scalar(0.0, 255.0, 0.0, 255.0)
+        val TEXT_RECT_COLOR = Scalar( 255.0, 0.0, 0.0)
+
+        // Threshold for the application
+        val THRESHOLD = 2
     }
 }

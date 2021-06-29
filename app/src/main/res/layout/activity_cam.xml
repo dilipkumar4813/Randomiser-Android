@@ -16,4 +16,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:show_fps="false" />
 
+    <ImageView
+        android:id="@+id/iv_place"
+        android:layout_width="@dimen/dm_150"
+        android:layout_height="@dimen/dm_250"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package com.iamdilipkumar.randomiser.ui.activities.cam
 
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.view.SurfaceView
 import android.view.WindowInsets
 import android.view.WindowManager
 import com.iamdilipkumar.randomiser.R
+import com.iamdilipkumar.randomiser.dialogs.SingleButtonDialog
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_cam.*
@@ -23,6 +25,7 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
 
     private var mRgba: Mat? = null
     private var mGray: Mat? = null
+    var detectedBitmap: Bitmap? = null
 
     var shouldCapture = false
 
@@ -132,7 +135,16 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         mRgba = inputFrame!!.rgba()
         mGray = inputFrame.gray()
 
-        presenter.detectFaces(mRgba!!, mGray!!)
+        presenter.detectFaces(this@CamActivity, mRgba!!, mGray!!)
+
+        this@CamActivity.runOnUiThread(java.lang.Runnable {
+            if (detectedBitmap != null) {
+                iv_place.setImageBitmap(detectedBitmap)
+            } else {
+                // Show dialog if it is a click event
+            }
+        })
+
         // Checking orientation issue
         /*val mRgba = inputFrame!!.rgba()
         val mRgbaT: Mat = mRgba.t()

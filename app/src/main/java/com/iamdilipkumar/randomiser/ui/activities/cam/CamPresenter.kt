@@ -3,6 +3,7 @@ package com.iamdilipkumar.randomiser.ui.activities.cam
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.util.Log
 import com.iamdilipkumar.randomiser.R
@@ -16,6 +17,7 @@ import org.opencv.objdetect.CascadeClassifier
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 /**
@@ -122,7 +124,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
      * Function to detect the faces during the frame update of the camera
      * to get live preview of the detections
      */
-    fun detectFaces(rgba: Mat, gray: Mat) {
+    fun detectFaces(camActivity: CamActivity, rgba: Mat, gray: Mat) {
         if (mAbsoluteFaceSize == 0) {
             val height = gray.rows()
             if ((height * AppConstants.RELATIVE_FACE_SIZE).roundToInt() > 0) {
@@ -144,7 +146,21 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
             Log.e(AppConstants.CAM_TAG, "Detection method is not selected!")
         }
 
-        val facesArray: Array<Rect> = faces.toArray()
+        drawTheOddOneOut(camActivity, faces.toArray(), rgba)
+    }
+
+    /**
+     * Function to manage the threshold logic to draw a text when detected the odd one out
+     * Store the Mat in activity global variable for capture
+     *
+     * Note: We are storing in global variable since OpenCV capture works on milleseconds
+     */
+    private fun drawTheOddOneOut(camActivity: CamActivity, facesArray: Array<Rect>, rgba: Mat) {
+        var hitPersonal = 0
+        if (facesArray.size > 1) {
+            hitPersonal = (facesArray.indices).random()
+        }
+
         for (i in facesArray.indices) {
             val rt = facesArray[i]
             Imgproc.rectangle(
@@ -157,6 +173,22 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
 
             // Imgproc.putText(mRgba, "Hello")
             Log.d("Image", "Image count $i")
+
+            if (facesArray.size >= AppConstants.THRESHOLD && hitPersonal == i) {
+                // Draw the text above the box
+                Imgproc.putText(
+                    rgba,
+                    "You're the chosen one", Point(
+                        max(rt.tl().x - 10, 0.0), max(rt.tl().y - 10, 0.0)
+                    ), Imgproc.FONT_HERSHEY_TRIPLEX,
+                    0.5, AppConstants.TEXT_RECT_COLOR
+                )
+            }
+        }
+
+        if (facesArray.size >= AppConstants.THRESHOLD) {
+            camActivity.detectedBitmap = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888)
+            Utils.matToBitmap(rgba, camActivity.detectedBitmap)
         }
     }
 }
