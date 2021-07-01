@@ -3,7 +3,6 @@ package com.iamdilipkumar.randomiser.ui.activities.cam
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Build
 import android.util.Log
 import com.iamdilipkumar.randomiser.R
@@ -30,9 +29,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
     private var mCascadeFile: File? = null
     private var mJavaDetector: CascadeClassifier? = null
     private var mNativeDetector: DetectionBasedTracker? = null
-
     private var mDetectorType = AppConstants.JAVA_DETECTOR
-
     private var mAbsoluteFaceSize = 0
 
     /**
@@ -124,7 +121,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
      * Function to detect the faces during the frame update of the camera
      * to get live preview of the detections
      */
-    fun detectFaces(camActivity: CamActivity, rgba: Mat, gray: Mat) {
+    fun detectFaces(rgba: Mat, gray: Mat) {
         if (mAbsoluteFaceSize == 0) {
             val height = gray.rows()
             if ((height * AppConstants.RELATIVE_FACE_SIZE).roundToInt() > 0) {
@@ -146,7 +143,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
             Log.e(AppConstants.CAM_TAG, "Detection method is not selected!")
         }
 
-        drawTheOddOneOut(camActivity, faces.toArray(), rgba)
+        drawTheOddOneOut(faces.toArray(), rgba)
     }
 
     /**
@@ -155,7 +152,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
      *
      * Note: We are storing in global variable since OpenCV capture works on milleseconds
      */
-    private fun drawTheOddOneOut(camActivity: CamActivity, facesArray: Array<Rect>, rgba: Mat) {
+    private fun drawTheOddOneOut(facesArray: Array<Rect>, rgba: Mat) {
         var hitPersonal = 0
         if (facesArray.size > 1) {
             hitPersonal = (facesArray.indices).random()
@@ -187,8 +184,7 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
         }
 
         if (facesArray.size >= AppConstants.THRESHOLD) {
-            CamActivity.detectedBitmap = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888)
-            Utils.matToBitmap(rgba, CamActivity.detectedBitmap)
+            camView.setBitmapResultOnThreshold(rgba)
         }
     }
 }

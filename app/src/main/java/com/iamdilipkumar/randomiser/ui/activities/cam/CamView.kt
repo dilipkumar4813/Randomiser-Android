@@ -1,6 +1,7 @@
 package com.iamdilipkumar.randomiser.ui.activities.cam
 
 import com.iamdilipkumar.randomiser.ui.base.BaseView
+import org.opencv.core.Mat
 
 /**
  * @project:    Randomiser
@@ -9,4 +10,5 @@ import com.iamdilipkumar.randomiser.ui.base.BaseView
  */
 interface CamView: BaseView {
     fun onCameraPermissionGranted()
+    fun setBitmapResultOnThreshold(rgba: Mat)
 }

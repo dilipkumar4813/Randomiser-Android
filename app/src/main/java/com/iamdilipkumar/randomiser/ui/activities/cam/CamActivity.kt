@@ -15,6 +15,7 @@ import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_cam.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
+import org.opencv.android.Utils
 import org.opencv.core.Mat
 
 /**
@@ -27,14 +28,8 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
 
     private var mRgba: Mat? = null
     private var mGray: Mat? = null
-
-    companion object {
-        var detectedBitmap: Bitmap? = null
-    }
-
-    var shouldCapture = false
-
-    var mOpenCvCameraView: CameraBridgeViewBase? = null
+    private var mDetectedBitmap: Bitmap? = null
+    private var mOpenCvCameraView: CameraBridgeViewBase? = null
 
     private val mLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
@@ -57,14 +52,6 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
     }
 
     override fun afterViews() {
-        // Initialise the camera view
-        mOpenCvCameraView = custom_cam_view as CameraBridgeViewBase
-        mOpenCvCameraView?.visibility = SurfaceView.VISIBLE
-        mOpenCvCameraView?.setCvCameraViewListener(this)
-        iv_place.setOnClickListener(this)
-    }
-
-    override fun getLayoutId(): Int {
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
@@ -74,6 +61,15 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
+
+        // Initialise the camera view
+        mOpenCvCameraView = custom_cam_view as CameraBridgeViewBase
+        mOpenCvCameraView?.visibility = SurfaceView.VISIBLE
+        mOpenCvCameraView?.setCvCameraViewListener(this)
+        iv_place.setOnClickListener(this)
+    }
+
+    override fun getLayoutId(): Int {
         return R.layout.activity_cam
     }
 
@@ -111,6 +107,11 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         }
     }
 
+    override fun setBitmapResultOnThreshold(rgba: Mat) {
+        mDetectedBitmap = Bitmap.createBitmap(rgba.cols(), rgba.rows(), Bitmap.Config.ARGB_8888)
+        Utils.matToBitmap(rgba, mDetectedBitmap)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -139,15 +140,14 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         mRgba = inputFrame!!.rgba()
         mGray = inputFrame.gray()
 
-        presenter.detectFaces(this@CamActivity, mRgba!!, mGray!!)
+        presenter.detectFaces(mRgba!!, mGray!!)
 
-        this@CamActivity.runOnUiThread(java.lang.Runnable {
-            if (detectedBitmap != null) {
-                iv_place.setImageBitmap(detectedBitmap)
-            } else {
-                // Show dialog if it is a click event
+        this@CamActivity.runOnUiThread {
+            if (mDetectedBitmap != null) {
+                cl_result_preview.visibility = View.VISIBLE
+                iv_place.setImageBitmap(mDetectedBitmap)
             }
-        })
+        }
 
         // Checking orientation issue
         /*val mRgba = inputFrame!!.rgba()
@@ -160,7 +160,9 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
     override fun onClick(v: View?) {
         when (v) {
             iv_place -> {
-                if (detectedBitmap != null) {
+                if (mDetectedBitmap != null) {
+                    // Using static to avoid additional permission request to pass bytes Array in intent
+                    LuckyResultActivity.detectedBitmap = mDetectedBitmap
                     val intent = Intent(this, LuckyResultActivity::class.java)
                     startActivity(intent)
                 }

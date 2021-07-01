@@ -1,8 +1,8 @@
 package com.iamdilipkumar.randomiser.ui.activities.results
 
+import android.graphics.Bitmap
 import android.view.View
 import com.iamdilipkumar.randomiser.R
-import com.iamdilipkumar.randomiser.ui.activities.cam.CamActivity
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import kotlinx.android.synthetic.main.activity_lucky_result.*
 
@@ -13,13 +13,18 @@ import kotlinx.android.synthetic.main.activity_lucky_result.*
  */
 class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResultView,
     View.OnClickListener {
+
+    companion object {
+        var detectedBitmap: Bitmap? = null
+    }
+
     override fun instantiatePresenter(): LuckyResultPresenter {
         return LuckyResultPresenter(this)
     }
 
     override fun afterViews() {
-        if (CamActivity.detectedBitmap != null) {
-            iv_results.setImageBitmap(CamActivity.detectedBitmap!!)
+        if (detectedBitmap != null) {
+            iv_results.setImageBitmap(detectedBitmap!!)
             tv_results_error.visibility = View.GONE
         } else {
             tv_results_error.visibility = View.VISIBLE
@@ -36,5 +41,10 @@ class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResult
         when(v) {
             btn_try_again -> finish()
         }
+    }
+
+    override fun onDestroy() {
+        detectedBitmap = null
+        super.onDestroy()
     }
 }
