@@ -16,11 +16,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:show_fps="false" />
 
-    <ImageView
-        android:id="@+id/iv_place"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_result_preview"
         android:layout_width="@dimen/dm_150"
-        android:layout_height="@dimen/dm_250"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="@dimen/dm_170"
+        android:visibility="gone"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_place"
+            android:layout_width="@dimen/dm_0"
+            android:layout_height="@dimen/dm_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="@dimen/dm_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dm_8"
+            android:fontFamily="@font/cairo_bold"
+            android:gravity="center"
+            android:text="@string/tap_me"
+            android:textColor="@color/font_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

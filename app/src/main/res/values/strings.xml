@@ -9,4 +9,5 @@
     <string name="results">Results</string>
     <string name="results_error">There was an error processing your results, try again</string>
     <string name="try_again">Try again</string>
+    <string name="tap_me">Tap me</string>
 </resources>
