@@ -32,6 +32,8 @@ class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResult
             if (AppConstants.SHOW_OPENCV_IMAGE_DIFFERENCE) {
                 iv_processed.setImageBitmap(detectedBitmap!!)
                 iv_original.setImageBitmap(originalBitmap!!)
+                tv_processed.visibility = View.VISIBLE
+                tv_original.visibility = View.VISIBLE
             } else {
                 iv_result.setImageBitmap(detectedBitmap!!)
             }

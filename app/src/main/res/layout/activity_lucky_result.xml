@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_original"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dm_16"
@@ -23,6 +24,7 @@
         android:gravity="center"
         android:text="@string/original"
         android:textSize="@dimen/sp_28"
+        android:visibility="gone"
         android:textColor="@color/font_color"
         app:layout_constraintEnd_toEndOf="@id/guide_50"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,13 +41,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_processed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dm_16"
         android:fontFamily="@font/cairo_bold"
         android:gravity="center"
-        android:text="Processed"
+        android:text="@string/processed"
         android:textSize="@dimen/sp_28"
+        android:visibility="gone"
         android:textColor="@color/font_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guide_50"
