@@ -149,11 +149,6 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
             }
         }
 
-        // Checking orientation issue
-        /*val mRgba = inputFrame!!.rgba()
-        val mRgbaT: Mat = mRgba.t()
-        Core.flip(mRgba.t(), mRgbaT, 1)
-        Imgproc.resize(mRgbaT, mRgbaT, mRgba.size())*/
         return mRgba!!
     }
 
@@ -161,8 +156,9 @@ class CamActivity : BaseActivityMVP<CamPresenter>(), CamView,
         when (v) {
             iv_place -> {
                 if (mDetectedBitmap != null) {
-                    // Using static to avoid additional permission request to pass bytes Array in intent
-                    LuckyResultActivity.detectedBitmap = mDetectedBitmap
+                    LuckyResultActivity.originalBitmap = mDetectedBitmap!!
+                    LuckyResultActivity.detectedBitmap = presenter.sharpenImage(mDetectedBitmap!!)
+
                     val intent = Intent(this, LuckyResultActivity::class.java)
                     startActivity(intent)
                 }

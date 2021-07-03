@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Randomiser</string>
     <string name="app_description">A Fun Experiment with Friends in order to reduce bias and choose the best one out</string>
+    <string name="no_camera_title">No Camera Detected</string>
+    <string name="no_camera_description">Your device has no camera, to use this app you would require a camera on your android device.</string>
     <string name="start_detection">Start Detection</string>
     <string name="background_image">Background Image</string>
     <string name="camera_permission_title">Camera Permission</string>
@@ -10,4 +12,5 @@
     <string name="results_error">There was an error processing your results, try again</string>
     <string name="try_again">Try again</string>
     <string name="tap_me">Tap me</string>
+    <string name="original">Original</string>
 </resources>

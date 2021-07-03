@@ -18,10 +18,14 @@ class AppConstants {
         const val JAVA_DETECTOR = 0
         const val NATIVE_DETECTOR = 1
 
+        // Color for Face Box and Text Color
         val FACE_RECT_COLOR = Scalar(0.0, 255.0, 0.0, 255.0)
         val TEXT_RECT_COLOR = Scalar( 255.0, 0.0, 0.0)
 
         // Threshold for the application
         val THRESHOLD = 2
+
+        // Whether to show original and processed image
+        val SHOW_OPENCV_IMAGE_DIFFERENCE = false
     }
 }

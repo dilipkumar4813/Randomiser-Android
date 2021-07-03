@@ -3,6 +3,7 @@ package com.iamdilipkumar.randomiser.ui.activities.cam
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.util.Log
 import com.iamdilipkumar.randomiser.R
@@ -186,5 +187,28 @@ class CamPresenter(private val camView: CamView) : BasePresenter<CamView>(camVie
         if (facesArray.size >= AppConstants.THRESHOLD) {
             camView.setBitmapResultOnThreshold(rgba)
         }
+    }
+
+    /**
+     * Get mat from bitmap and process the image
+     * Blur it using the Gaussian filter and subtract the smoothed version from the original image.
+     */
+    fun sharpenImage(detectedBitmap: Bitmap): Bitmap {
+        val rgba = Mat()
+        val bmp32 = detectedBitmap.copy(Bitmap.Config.ARGB_8888, true)
+        Utils.bitmapToMat(bmp32, rgba)
+
+        val dest = Mat(rgba.rows(), rgba.cols(), rgba.type())
+        Imgproc.GaussianBlur(rgba, dest, Size(0.0, 0.0), 10.0)
+        Core.addWeighted(rgba, 1.5, dest, -0.5, 0.0, dest)
+
+        val processedBitmap = Bitmap.createBitmap(
+            dest.cols(),
+            dest.rows(),
+            Bitmap.Config.ARGB_8888
+        )
+        Utils.matToBitmap(dest, processedBitmap)
+
+        return processedBitmap
     }
 }

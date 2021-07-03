@@ -5,7 +5,7 @@
 Ever had a scenario when your friends/family had to pick a person who had to do a specific task and flipping a coin just did not solve your problem. This project aims on resolving that using the OpenCV library.
 
 ## End Result
-![Chosen One](/screenshots/chosen-one.png "Chosen One")
+![Chosen One](/screenshots/chosen.png "Chosen One")
 
 ## Requirements
 * Android Studio
@@ -24,7 +24,12 @@ Ever had a scenario when your friends/family had to pick a person who had to do 
 8. Build and run.
 
 ## Threshold
-* At the moment the result is generated only when 2 or more faces are detected if you would like to change this value open ```AppConstants``` and update the ```THRESHOLD``` variable.
+* At the moment the result is generated only when 2 or more faces are detected if you would like to change threshold, then open ```AppConstants``` class and update the ```THRESHOLD``` variable.
+
+## Sharpen Image
+* To make the image sharp we use the Gaussian Filter, if you would like to see the difference between the original image and the processed image, then open ```AppConstants``` class and update the ```SHOW_OPENCV_IMAGE_DIFFERENCE``` variable to ```true```. 
+
+![Processing Image](/screenshots/image-difference.png "Difference")
 
 ## References
 * [OpenCV 4.5.2](https://docs.opencv.org/4.5.2/)

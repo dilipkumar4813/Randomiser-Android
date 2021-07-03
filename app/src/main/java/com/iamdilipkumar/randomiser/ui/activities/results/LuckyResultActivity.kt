@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.view.View
 import com.iamdilipkumar.randomiser.R
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
+import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_lucky_result.*
 
 /**
@@ -16,6 +17,7 @@ class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResult
 
     companion object {
         var detectedBitmap: Bitmap? = null
+        var originalBitmap: Bitmap? = null
     }
 
     override fun instantiatePresenter(): LuckyResultPresenter {
@@ -24,8 +26,15 @@ class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResult
 
     override fun afterViews() {
         if (detectedBitmap != null) {
-            iv_results.setImageBitmap(detectedBitmap!!)
             tv_results_error.visibility = View.GONE
+
+            // Check if the difference image to be shown or just show the results
+            if (AppConstants.SHOW_OPENCV_IMAGE_DIFFERENCE) {
+                iv_processed.setImageBitmap(detectedBitmap!!)
+                iv_original.setImageBitmap(originalBitmap!!)
+            } else {
+                iv_result.setImageBitmap(detectedBitmap!!)
+            }
         } else {
             tv_results_error.visibility = View.VISIBLE
         }
@@ -38,13 +47,14 @@ class LuckyResultActivity : BaseActivityMVP<LuckyResultPresenter>(), LuckyResult
     }
 
     override fun onClick(v: View?) {
-        when(v) {
-            btn_try_again -> finish()
-        }
-    }
+        when (v) {
+            btn_try_again -> {
+                finish()
 
-    override fun onDestroy() {
-        detectedBitmap = null
-        super.onDestroy()
+                // Release the variable for on finish
+                detectedBitmap = null
+                originalBitmap = null
+            }
+        }
     }
 }

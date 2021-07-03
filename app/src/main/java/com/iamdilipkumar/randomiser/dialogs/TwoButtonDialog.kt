@@ -19,7 +19,7 @@ class TwoButtonDialog(
     val description: String,
     val buttonLeftText: String,
     val buttonRightText: String,
-    val twoDialogInterface: TwoButtonDialogInterface
+    private val twoDialogInterface: TwoButtonDialogInterface
 ) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
