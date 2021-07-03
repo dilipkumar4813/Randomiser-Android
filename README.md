@@ -36,6 +36,7 @@ Ever had a scenario when your friends/family had to pick a person who had to do 
 * [PNG Tree for Assets](https://pngtree.com/so/photo)
 * [Google Fonts](https://fonts.google.com/specimen/Cairo#standard-styles)
 * [Logo from iamdilipkumar](https://iamdilipkumar.com/)
+* [Latest Cascade File](https://github.com/opencv/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml)
 
 ## Notes
 * Color combination is due to the inspiration from Nintendo Switch, it does not go with the color wheel but wanted to try it out.
