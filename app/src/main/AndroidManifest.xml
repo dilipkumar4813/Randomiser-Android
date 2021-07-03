@@ -49,6 +49,8 @@
         <activity android:name=".ui.activities.info.InfoActivity" />
 
         <activity android:name=".ui.activities.results.LuckyResultActivity" />
+
+        <activity android:name=".ui.activities.customcam.CustomCamActivity" />
     </application>
 
 </manifest>

@@ -26,6 +26,9 @@ Ever had a scenario when your friends/family had to pick a person who had to do 
 ## Threshold
 * At the moment the result is generated only when 2 or more faces are detected if you would like to change threshold, then open ```AppConstants``` class and update the ```THRESHOLD``` variable.
 
+## CameraX or JavaCamera2View
+* At the moment the detection activity uses JavaCamera2View if you would like to change, then open ```AppConstants``` class and update the ```SHOW_CAMERAX``` variable to ```true``` to show CameraX or ```false``` for JavaCamera2View.
+
 ## Sharpen Image
 * To make the image sharp we use the Gaussian Filter, if you would like to see the difference between the original image and the processed image, then open ```AppConstants``` class and update the ```SHOW_OPENCV_IMAGE_DIFFERENCE``` variable to ```true```. 
 

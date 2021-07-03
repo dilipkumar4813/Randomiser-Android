@@ -7,6 +7,7 @@ import com.iamdilipkumar.randomiser.dialogs.SingleButtonDialog
 import com.iamdilipkumar.randomiser.dialogs.TwoButtonDialog
 import com.iamdilipkumar.randomiser.helpers.TwoButtonDialogInterface
 import com.iamdilipkumar.randomiser.ui.activities.cam.CamActivity
+import com.iamdilipkumar.randomiser.ui.activities.customcam.CustomCamActivity
 import com.iamdilipkumar.randomiser.ui.base.BaseActivityMVP
 import com.iamdilipkumar.randomiser.utilities.AppConstants
 import kotlinx.android.synthetic.main.activity_info.*
@@ -32,7 +33,13 @@ class InfoActivity : BaseActivityMVP<InfoPresenter>(), InfoView {
     }
 
     override fun onCameraPermissionGranted() {
-        startActivity(Intent(this, CamActivity::class.java))
+        val intent = if (AppConstants.SHOW_CAMERAX) {
+            Intent(this, CustomCamActivity::class.java)
+        } else {
+            Intent(this, CamActivity::class.java)
+        }
+
+        startActivity(intent)
     }
 
     override fun onRequestPermissionsResult(

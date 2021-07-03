@@ -2,6 +2,7 @@ package com.iamdilipkumar.randomiser.di.component
 
 import com.iamdilipkumar.randomiser.di.module.ContextModule
 import com.iamdilipkumar.randomiser.ui.activities.cam.CamPresenter
+import com.iamdilipkumar.randomiser.ui.activities.customcam.CustomCamPresenter
 import com.iamdilipkumar.randomiser.ui.activities.info.InfoPresenter
 import com.iamdilipkumar.randomiser.ui.activities.results.LuckyResultPresenter
 import com.iamdilipkumar.randomiser.ui.activities.splash.SplashPresenter
@@ -38,4 +39,5 @@ interface PresenterInjector {
     fun injectInfo(infoPresenter: InfoPresenter)
     fun injectCam(camPresenter: CamPresenter)
     fun injectLuckyResult(luckyResultPresenter: LuckyResultPresenter)
+    fun injectCustomCam(customCamPresenter: CustomCamPresenter)
 }
