@@ -29,6 +29,6 @@ class AppConstants {
         val SHOW_OPENCV_IMAGE_DIFFERENCE = false
 
         // True shows cameraX and false shows opencv camera2
-        val SHOW_CAMERAX = true
+        val SHOW_CAMERAX = false
     }
 }
